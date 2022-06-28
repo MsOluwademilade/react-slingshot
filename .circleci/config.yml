@@ -1,5 +1,16 @@
 version: 2.1
 
+workflow:
+  my_workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires:
+            - test
+            
 jobs:
   build:
     docker:
@@ -25,14 +36,7 @@ jobs:
       - run: npm i
       - run: npm audit
 
-workflow:
-  my_workflow:
-    jobs:
-      - build
-      - test
-      - analyze:
-          requires:
-            - test
+
 
 
 
